@@ -1,8 +1,8 @@
 // ===============================
 // ★ここを自分のSupabase値に置き換える
 // ===============================
-const SUPABASE_URL = "https://YOUR-PROJECT-REF.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "YOUR_PUBLISHABLE_KEY"; // Publishable key（旧 anon public key）
+const SUPABASE_URL = "https://xamtcoqdnifnmyxhvcyu.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_FzI0cJdWbssWWFLuMfSUlA_hVMilF6s"; // Publishable key（旧 anon public key）
 // ===============================
 
 // SDKは window.supabase を使うので、クライアントは別名（衝突回避）
