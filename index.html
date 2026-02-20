@@ -3,35 +3,40 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Supabase Auth Starter</title>
+    <title>Quiz/Game Platform (Supabase)</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <main class="wrap">
-      <h1>登録制プラットフォーム（Auth最小）</h1>
+      <header class="hero">
+        <h1>登録制クイズ／ゲーム（最小プラットフォーム）</h1>
+        <p class="muted">ログイン → 表示名登録 → スコア送信 → ランキング</p>
+      </header>
 
       <section class="card">
-        <h2>ユーザー登録 / ログイン</h2>
+        <h2>1) 登録 / ログイン</h2>
 
-        <label
-          >Email
-          <input
-            id="email"
-            type="email"
-            placeholder="you@example.com"
-            autocomplete="email"
-          />
-        </label>
+        <div class="grid2">
+          <label
+            >Email
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+            />
+          </label>
 
-        <label
-          >Password
-          <input
-            id="password"
-            type="password"
-            placeholder="8文字以上推奨"
-            autocomplete="current-password"
-          />
-        </label>
+          <label
+            >Password
+            <input
+              id="password"
+              type="password"
+              placeholder="8文字以上推奨"
+              autocomplete="current-password"
+            />
+          </label>
+        </div>
 
         <div class="row">
           <button id="btnSignUp">新規登録</button>
@@ -40,19 +45,88 @@
         </div>
 
         <div class="hint muted">
-          反応が遅いことがあります。連打しないでください（ボタンは自動で無効化します）。
+          反応が遅いことがあります。ボタンは自動で一時無効化されます（連打防止）。
         </div>
 
-        <div id="status" class="status">起動中…</div>
+        <div id="authStatus" class="status">起動中…</div>
         <pre id="log" class="log"></pre>
       </section>
 
+      <section class="card" id="profileCard" style="display: none">
+        <h2>2) 表示名（ランキング用）</h2>
+        <p class="muted">
+          メールは表示しません。表示名だけランキングに出します（ユニーク必須）。
+        </p>
+
+        <div class="grid2">
+          <label
+            >表示名（ニックネーム）
+            <input id="displayName" placeholder="例：mukki" maxlength="24" />
+          </label>
+
+          <div class="chipbox">
+            <div class="chip muted">
+              使える例：mukki / yukky / bacteria_lover
+            </div>
+            <div class="chip muted">同名は不可（ユニーク制約）</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <button id="btnSaveProfile">保存</button>
+          <button id="btnRandomName" class="ghost">自動生成</button>
+        </div>
+
+        <div id="profileStatus" class="status">未登録</div>
+      </section>
+
+      <section class="card" id="gameCard" style="display: none">
+        <h2>3) スコア送信（デモ）</h2>
+        <p class="muted">
+          ここは本物のゲーム/クイズに置き換えればOK。まずはスコアだけ送れるようにする。
+        </p>
+
+        <div class="grid2">
+          <label
+            >スコア（整数）
+            <input id="scoreValue" type="number" min="0" step="1" value="10" />
+          </label>
+
+          <label
+            >モード（任意）
+            <input
+              id="modeValue"
+              placeholder="default / easy / hard など"
+              value="default"
+            />
+          </label>
+        </div>
+
+        <div class="row">
+          <button id="btnSubmitScore">スコア送信</button>
+          <button id="btnLoadRank" class="ghost">ランキング更新</button>
+        </div>
+
+        <div id="scoreStatus" class="status">未送信</div>
+      </section>
+
+      <section class="card">
+        <h2>🏆 ランキング（上位20）</h2>
+        <p class="muted">
+          各ユーザーの「最高スコア」で並べます（メールは出ません）。
+        </p>
+        <div class="row">
+          <button id="btnLoadRank2" class="ghost">ランキング更新</button>
+        </div>
+        <ol id="rankList" class="rank"></ol>
+      </section>
+
       <footer class="foot muted">
-        Publishable key は公開前提。安全はRLS（次の段階）で担保します。
+        Publishable keyは公開前提。安全はRLS（SQLで設定済み）で守ります。
       </footer>
     </main>
 
-    <!-- Supabase JS v2 (UMD): window.supabase が生える -->
+    <!-- Supabase JS v2 (UMD) : window.supabase が生える -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
   </body>
